@@ -3,26 +3,29 @@ import java.util.List;
 
 public class Person {
     private String name;
+    private int age;
+    private boolean sex; // man - true, woman - false
     private Person mother;
     private Person father;
 
     private Person partner;
     private List<Person> children = new ArrayList<>();
 
-    public Person(String name) {
+    public Person(String name, int age) {
         this.name = name;
+        this.age = age;
     }
 
-    public Person(String name, Person father, Person mother) {
-        this(name);
+    public Person(String name, int age, Person father, Person mother) {
+        this(name, age);
         this.father = father;
         this.mother = mother;
-        father.addChild(this);
-        mother.addChild(this);
+        if(father != null) father.addChild(this);
+        if(mother != null) mother.addChild(this);
     }
 
-    public Person(String name, Person father, Person mother, Person partner) {
-        this(name, father, mother);
+    public Person(String name, int age, Person father, Person mother, Person partner) {
+        this(name, age, father, mother);
         this.partner = partner;
     }
 
@@ -37,8 +40,14 @@ public class Person {
     }
 
     public void addChild(Person child){
-        if(father != child && mother != child && partner != child){
+        if(this != child && this.age > child.age
+                && (father == null || !father.children.contains(child))
+                && (mother == null || !mother.children.contains(child))
+                && partner != child){
             children.add(child);
+            if(this.sex) {
+                child.father = this;
+            } else child.mother = this;
         }
     }
 
