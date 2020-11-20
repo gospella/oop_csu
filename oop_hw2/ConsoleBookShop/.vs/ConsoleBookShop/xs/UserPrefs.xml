@@ -1,0 +1,36 @@
+﻿<Properties StartupConfiguration="{7AEE6977-C237-43C4-AE3D-0502CD0B3AB0}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ConsoleBookShop/Shop/BookCard.cs">
+    <Files>
+      <File FileName="ConsoleBookShop/Program.cs" Line="32" Column="50" />
+      <File FileName="ConsoleBookShop/Shop/BookRange.cs" Line="75" Column="31" />
+      <File FileName="ConsoleBookShop/Informer.cs" Line="17" Column="60" />
+      <File FileName="ConsoleBookShop/Discount/Discount.cs" Line="6" Column="40" />
+      <File FileName="ConsoleBookShop/Book/PaperBook.cs" Line="9" Column="29" />
+      <File FileName="ConsoleBookShop/Book/EBook.cs" Line="22" Column="40" />
+      <File FileName="ConsoleBookShop/Book/IBook.cs" Line="8" Column="42" />
+      <File FileName="ConsoleBookShop/Shop/BookCard.cs" Line="4" Column="9" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="ConsoleBookShop" expanded="True">
+            <Node name="ConsoleBookShop" expanded="True">
+              <Node name="Book" expanded="True" />
+              <Node name="Discount" expanded="True" />
+              <Node name="Shop" expanded="True">
+                <Node name="BookCard.cs" selected="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ConsoleBookShop PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>
