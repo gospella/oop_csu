@@ -46,8 +46,12 @@ public class Person {
                 && partner != child){
             children.add(child);
             if(this.sex) {
+                if(child.father != null) child.father.children.remove(child);
                 child.father = this;
-            } else child.mother = this;
+            } else {
+                if(child.mother != null) child.mother.children.remove(child);
+                child.mother = this;
+            }
         }
     }
 
