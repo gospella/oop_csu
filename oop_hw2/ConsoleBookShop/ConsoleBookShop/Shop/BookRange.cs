@@ -10,22 +10,13 @@ namespace ConsoleBookShop.Shop
         private readonly List<BookCard> bookList = new List<BookCard>();
         private int booksCount { get; set; } = 0;
 
-        public BookRange()
-        {
-            //paperBooks = new Dictionary<IBook, int>();
-            //ebooks = new List<IBook>();
-        }
-
-        //public Dictionary<IBook, int> PaperBooks { get => paperBooks; }
-        //public List<IBook> Ebooks { get => ebooks; }
-
         public void AddBooks(params IBook[] books)
         {
             foreach (IBook book in books)
             {
                 if (book is PaperBook)
                 {
-                    BookCard bc = new BookCard(book, 1, false);
+                    BookCard bc = new BookCard(book, false, 1);
                     if (bookList.Contains(bc))
                     {
                         bookList[bookList.IndexOf(bc)].CountPaperUnits += 1;
@@ -36,13 +27,18 @@ namespace ConsoleBookShop.Shop
                         booksCount++;
                     }
                     
+
                 }
                 else if (book is EBook)
                 {
-                    BookCard bc = new BookCard(book, 0, true);
+                    BookCard bc = new BookCard(book, true, 0);
                     if (bookList.Contains(bc))
                     {
-                        bookList[bookList.IndexOf(bc)].IsAvailableInDigital = true;
+                        EBook ebook = (EBook) bookList[bookList.IndexOf(bc)].Book;
+                        foreach (Format format in ((EBook)book).getFormats())
+                        {
+                            ebook.addFormat(format);
+                        }
                     }
                     else
                     {
@@ -54,23 +50,26 @@ namespace ConsoleBookShop.Shop
             
         }
 
-        public void deleteBook(IBook book)
+        public void deleteBook(BookCard bookCard)
         {
-            BookCard bc = new BookCard(book, 0, false);
-            if (book is PaperBook && bookList.Contains(bc))
+            if (bookCard.Book is PaperBook)
             {
-                booksCount--;
-                int id = bookList.IndexOf(bc);
-                if (bookList[id].CountPaperUnits > 1)
+                if (bookList.Contains(bookCard))
                 {
-                    bookList[id].CountPaperUnits -= 1;
-                }
-                else if (bookList[id].CountPaperUnits == 1)
-                {
-                    bookList.Remove(bc);
-                } else
-                {
-                    throw new Exception();
+                    int id = bookList.IndexOf(bookCard);
+                    if (bookList[id].CountPaperUnits > 1)
+                    {
+                        bookList[id].CountPaperUnits -= 1;
+                    }
+                    else if (bookList[id].CountPaperUnits == 1)
+                    {
+                        bookList.Remove(bookCard);
+                        booksCount--;
+                    }
+                    else
+                    {
+                        throw new Exception();
+                    }
                 }
             }
         }

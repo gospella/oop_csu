@@ -8,14 +8,14 @@ namespace ConsoleBookShop.Shop
     public class BookCard
     {
         private IBook book { get; }
+        private bool isDigital { get; set; }
         private int countPaperUnits { get; set; }
-        private bool isAvailableInDigital { get; set; }
 
-        public BookCard(IBook book, int countPaperUnits, bool isAvailableInDigital)
+        public BookCard(IBook book, bool isDigital, int countPaperUnits)
         {
             this.book = book;
             this.countPaperUnits = countPaperUnits;
-            this.isAvailableInDigital = isAvailableInDigital;
+            this.isDigital = isDigital;
         }
 
         public IBook Book { get => book; }
@@ -27,24 +27,25 @@ namespace ConsoleBookShop.Shop
                 countPaperUnits = value;
             }
         }
-        public bool IsAvailableInDigital
+        public bool IsDigital
         {
-            get => isAvailableInDigital;
+            get => isDigital;
             set
             {
-                isAvailableInDigital = value;
+                isDigital = value;
             }
         }
 
         public override bool Equals(object obj)
         {
             return obj is BookCard card &&
-                   EqualityComparer<IBook>.Default.Equals(book, card.book);
+                   EqualityComparer<IBook>.Default.Equals(book, card.book) &&
+                   isDigital == card.isDigital;
         }
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(book);
+            return HashCode.Combine(book, isDigital);
         }
     }
 }

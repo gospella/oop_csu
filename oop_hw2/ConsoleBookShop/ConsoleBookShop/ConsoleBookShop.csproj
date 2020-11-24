@@ -7,7 +7,9 @@
 
   <ItemGroup>
     <Folder Include="Book\" />
-    <Folder Include="Discount\" />
+    <Folder Include="Benefit\" />
     <Folder Include="Shop\" />
+    <Folder Include="Benefit\Promo\" />
+    <Folder Include="Benefit\Sale\" />
   </ItemGroup>
 </Project>

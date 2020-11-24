@@ -4,9 +4,9 @@ namespace ConsoleBookShop.Book
 {
     public class PaperBook : IBook
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public double Price { get; set; }
+        public string Title { get; }
+        public string Author { get; }
+        public double Price { get; }
 
         public PaperBook(string name, string material, double price)
         {
@@ -17,7 +17,7 @@ namespace ConsoleBookShop.Book
 
         public override bool Equals(object obj)
         {
-            return obj is IBook book &&
+            return obj is PaperBook book &&
                    Title == book.Title &&
                    Author == book.Author &&
                    Price == book.Price;

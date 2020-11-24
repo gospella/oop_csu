@@ -1,25 +1,40 @@
 ﻿using System;
+using System.Collections.Generic;
+
 namespace ConsoleBookShop.Book
 {
     public enum Format { PDF, epub }
     public class EBook : IBook
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-        public double Price { get; set; }
-        public Format Format { get; set; }
+        public string Title { get; }
+        public string Author { get; }
+        public double Price { get; }
+        public HashSet<Format> Formats = new HashSet<Format>();
 
-        public EBook(string name, string material, double price, Format format)
+        public EBook(string name, string material, double price, params Format[] formats)
         {
             Title = name;
             Author = material;
             Price = price;
-            Format = format;
+            foreach(Format format in formats)
+            {
+                Formats.Add(format);
+            }
+        }
+
+        public void addFormat(Format format)
+        {
+            Formats.Add(format);
+        }
+
+        public HashSet<Format> getFormats()
+        {
+            return Formats;
         }
 
         public override bool Equals(object obj)
         {
-            return obj is IBook book &&
+            return obj is EBook book &&
                    Title == book.Title &&
                    Author == book.Author &&
                    Price == book.Price;
@@ -28,6 +43,14 @@ namespace ConsoleBookShop.Book
         public override int GetHashCode()
         {
             return HashCode.Combine(Title, Author, Price);
+        }
+
+        public EBook makeFreeCopy()
+        {
+            Format[] formats = new Format[this.Formats.Count];
+            this.Formats.CopyTo(formats);
+            EBook other = new EBook(this.Title, this.Author, 0, formats);
+            return other;
         }
     }
 }
