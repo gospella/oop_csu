@@ -42,7 +42,7 @@ namespace BinarySearchTree.Tests
         {
             var dict = new BinaryTreeDictionary<int, string>();
 
-            Assert.IsFalse(dict.Contains(new KeyValuePair<int, string>(7, "seventh value")));
+            Assert.IsFalse(dict.ContainsKey(7));
         }
 
         [TestMethod]
@@ -126,6 +126,58 @@ namespace BinarySearchTree.Tests
             Assert.AreEqual(2, dict.Count);
         }
 
+        [TestMethod]
+        public void TestCopyTo()
+        {
+            var dict = new BinaryTreeDictionary<int, string>();
+
+            dict.Add(1, "first value");
+            dict.Add(3, "third value");
+            dict.Add(7, "seventh value");
+            dict.Add(11, "eleventh value");
+
+            KeyValuePair<int, string>[] array = new KeyValuePair<int, string>[4];
+
+            dict.CopyTo(array, 0);
+
+            Assert.IsNotNull(array);
+            Assert.AreEqual(array[0], new KeyValuePair<int, string>(1, "first value"));
+        }
+
+        [TestMethod]
+        public void TestClear()
+        {
+            var dict = new BinaryTreeDictionary<int, string>();
+
+            dict.Add(1, "first value");
+            dict.Add(3, "third value");
+            dict.Clear();
+
+            Assert.AreEqual(0, dict.Count);
+        }
+
+        [TestMethod]
+        public void TestTryGetValue()
+        {
+            var dict = new BinaryTreeDictionary<int, string>();
+
+            dict.Add(1, "first value");
+            var value = "default value";
+
+            Assert.IsTrue(dict.TryGetValue(1, out value));
+        }
+
+        [TestMethod]
+        public void TestAddAndResetValue()
+        {
+            var dict = new BinaryTreeDictionary<int, string>();
+
+            dict.Add(1, "first value");
+            dict[1] = "default value";
+
+            Assert.IsFalse(dict.Contains(new KeyValuePair<int, string>(1, "first value")));
+            Assert.IsTrue(dict.Contains(new KeyValuePair<int, string>(1, "default value")));
+        }
     }
 }
  

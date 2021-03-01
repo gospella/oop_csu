@@ -57,6 +57,45 @@ namespace BinarySearchTree.BinaryTree
 
         public bool Find(Tkey key)
         {
+            var node = GetNodeByKey(key);
+
+            if (node == null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public Tvalue Get(Tkey key)
+        {
+            var node = GetNodeByKey(key);
+
+            if (node != null)
+            {
+                return node.KeyValuePair.Value;
+            }
+
+            throw new KeyNotFoundException();
+        }
+
+        public void Insert(Tkey key, Tvalue value)
+        {
+            var keyValuePair = new KeyValuePair<Tkey, Tvalue>(key, value);
+            var node = GetNodeByKey(key);
+
+            if(node == null)
+            {
+                Add(keyValuePair);
+            }
+            else
+            {
+                node.KeyValuePair = keyValuePair;
+            }
+        }
+
+        public Node<Tkey, Tvalue> GetNodeByKey(Tkey key)
+        {
             var currentNode = root;
             while (currentNode != null)
             {
@@ -71,11 +110,11 @@ namespace BinarySearchTree.BinaryTree
                 }
                 else
                 {
-                    return true;
+                    return currentNode;
                 }
             }
 
-            return false;
+            return default(Node<Tkey, Tvalue>);
         }
 
         public IEnumerable<KeyValuePair<Tkey, Tvalue>> Traverse()

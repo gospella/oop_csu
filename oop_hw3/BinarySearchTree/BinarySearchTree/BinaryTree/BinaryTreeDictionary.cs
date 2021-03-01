@@ -11,12 +11,15 @@ namespace BinarySearchTree.BinaryTree
     {
         private BinaryTree<Tkey, Tvalue> tree = new BinaryTree<Tkey, Tvalue>();
 
+        public Tvalue this[Tkey key]
+        {
+            get => tree.Get(key);
+            set => tree.Insert(key, value);
+        }
 
-        public Tvalue this[Tkey key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public ICollection<Tkey> Keys => tree.Traverse().Select(keyValuePair => keyValuePair.Key).ToList();
 
-        public ICollection<Tkey> Keys => throw new NotImplementedException();
-
-        public ICollection<Tvalue> Values => throw new NotImplementedException();
+        public ICollection<Tvalue> Values => tree.Traverse().Select(keyValuePair => keyValuePair.Value).ToList();
 
         public int Count => tree.Traverse().Count();
 
@@ -40,12 +43,12 @@ namespace BinarySearchTree.BinaryTree
 
         public bool Contains(KeyValuePair<Tkey, Tvalue> item)
         {
-            return tree.Find(item.Key);
+            return tree.Get(item.Key).Equals(item.Value);
         }
 
         public bool ContainsKey(Tkey key)
         {
-            throw new NotImplementedException();
+            return tree.Find(key);
         }
 
         public void CopyTo(KeyValuePair<Tkey, Tvalue>[] array, int arrayIndex)
@@ -79,12 +82,13 @@ namespace BinarySearchTree.BinaryTree
 
         public bool TryGetValue(Tkey key, out Tvalue value)
         {
-            throw new NotImplementedException();
-        }
-
-        public ICollection ToDictionary<T1, T2>()
-        {
-            throw new NotImplementedException();
+            if (tree.Find(key))
+            {
+                value = this[key];
+                return true;
+            }
+            value = default(Tvalue);
+            return false;
         }
     }
 }
