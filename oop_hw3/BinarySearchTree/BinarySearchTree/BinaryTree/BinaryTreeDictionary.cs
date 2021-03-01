@@ -6,12 +6,10 @@ using System.Text;
 
 namespace BinarySearchTree.BinaryTree
 {
-    class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue>
+    public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue> where Tkey : IComparable
     {
+        private BinaryTree<Tkey, Tvalue> tree = new BinaryTree<Tkey, Tvalue>();
 
-        public BinaryTreeDictionary()
-        {
-        }
 
         public Tvalue this[Tkey key] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
@@ -23,26 +21,26 @@ namespace BinarySearchTree.BinaryTree
 
         public bool IsReadOnly => throw new NotImplementedException();
 
-        
-
         public void Add(Tkey key, Tvalue value)
         {
-            throw new NotImplementedException();
+            var KeyValuePair = new KeyValuePair<Tkey, Tvalue>(key, value);
+            tree.Add(KeyValuePair);
         }
 
         public void Add(KeyValuePair<Tkey, Tvalue> item)
         {
-            throw new NotImplementedException();
+            tree.Add(item);
         }
 
         public void Clear()
         {
-            throw new NotImplementedException();
+            tree = new BinaryTree<Tkey, Tvalue>();
         }
 
         public bool Contains(KeyValuePair<Tkey, Tvalue> item)
         {
-            throw new NotImplementedException();
+            var currentKeyValuePair = tree.Find(item.Key);
+            return !currentKeyValuePair.Equals(new KeyValuePair<Tkey, Tvalue>()) && currentKeyValuePair.Value.Equals(item.Value); //todo 
         }
 
         public bool ContainsKey(Tkey key)
@@ -70,7 +68,7 @@ namespace BinarySearchTree.BinaryTree
             throw new NotImplementedException();
         }
 
-        public bool TryGetValue(Tkey key, [MaybeNullWhen(false)] out Tvalue value)
+        public bool TryGetValue(Tkey key, out Tvalue value)
         {
             throw new NotImplementedException();
         }
