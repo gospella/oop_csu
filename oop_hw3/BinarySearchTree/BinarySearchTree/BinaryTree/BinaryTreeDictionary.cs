@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 using System.Text;
 
 namespace BinarySearchTree.BinaryTree
@@ -17,9 +18,9 @@ namespace BinarySearchTree.BinaryTree
 
         public ICollection<Tvalue> Values => throw new NotImplementedException();
 
-        public int Count => throw new NotImplementedException();
+        public int Count => tree.Traverse().Count();
 
-        public bool IsReadOnly => throw new NotImplementedException();
+        public bool IsReadOnly => false;
 
         public void Add(Tkey key, Tvalue value)
         {
@@ -39,8 +40,7 @@ namespace BinarySearchTree.BinaryTree
 
         public bool Contains(KeyValuePair<Tkey, Tvalue> item)
         {
-            var currentKeyValuePair = tree.Find(item.Key);
-            return !currentKeyValuePair.Equals(new KeyValuePair<Tkey, Tvalue>()) && currentKeyValuePair.Value.Equals(item.Value); //todo 
+            return tree.Find(item.Key);
         }
 
         public bool ContainsKey(Tkey key)
@@ -50,22 +50,31 @@ namespace BinarySearchTree.BinaryTree
 
         public void CopyTo(KeyValuePair<Tkey, Tvalue>[] array, int arrayIndex)
         {
-            throw new NotImplementedException();
+            foreach (var keyValuePair in tree.Traverse())
+            {
+                array[arrayIndex++] = keyValuePair;
+            }
         }
 
         public IEnumerator<KeyValuePair<Tkey, Tvalue>> GetEnumerator()
         {
-            throw new NotImplementedException();
+            return tree.Traverse()
+                .GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
 
         public bool Remove(Tkey key)
         {
-            throw new NotImplementedException();
+            return tree.Remove(key);
         }
 
         public bool Remove(KeyValuePair<Tkey, Tvalue> item)
         {
-            throw new NotImplementedException();
+            return tree.Remove(item.Key);
         }
 
         public bool TryGetValue(Tkey key, out Tvalue value)
@@ -73,7 +82,7 @@ namespace BinarySearchTree.BinaryTree
             throw new NotImplementedException();
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
+        public ICollection ToDictionary<T1, T2>()
         {
             throw new NotImplementedException();
         }
