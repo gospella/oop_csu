@@ -84,12 +84,12 @@ namespace BinarySearchTree.Tests
             dict.Add(1, "first value");
             dict.Add(3, "third value");
 
-            var dictionary = new Dictionary<int, string>()
+            var defaultDict = new Dictionary<int, string>()
             {
                 { 1, "first value" },
                 { 3, "third value" }
             };
-            CollectionAssert.AreEqual(dictionary, dict.ToList());
+            CollectionAssert.AreEqual(defaultDict, dict.ToList());
         }
 
         [TestMethod]

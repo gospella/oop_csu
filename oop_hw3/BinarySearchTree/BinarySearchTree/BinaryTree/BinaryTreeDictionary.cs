@@ -7,6 +7,7 @@ using System.Text;
 
 namespace BinarySearchTree.BinaryTree
 {
+    [Serializable]
     public class BinaryTreeDictionary<Tkey, Tvalue> : IDictionary<Tkey, Tvalue> where Tkey : IComparable
     {
         private BinaryTree<Tkey, Tvalue> tree = new BinaryTree<Tkey, Tvalue>();

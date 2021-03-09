@@ -4,6 +4,7 @@ using System.Text;
 
 namespace BinarySearchTree.BinaryTree
 {
+    [Serializable]
     class BinaryTree<Tkey, Tvalue> where Tkey : IComparable
     {
         private Node<Tkey, Tvalue> root;
